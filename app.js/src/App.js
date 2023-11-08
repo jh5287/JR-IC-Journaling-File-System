@@ -1,5 +1,6 @@
 import './styles.css';
 import Editor from './Editor'
+import Watch from './Watch'
 
 export default function App() {
   return (
@@ -7,7 +8,7 @@ export default function App() {
     <div className="grid">
 
       <div className="watchedFolder">
-
+        <Watch/>
       </div>
 
       <div className="textEditor">
