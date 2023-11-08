@@ -12,46 +12,45 @@ function Button({value, onButtonClick}){
 
 
 
-function Editor(){
+function Editor({txtFiles, setTxtFiles}){
     const ref = useRef(null);
-    const [files, setFiles] = useState([]);
-    //const [files, setFiles] = useState([Array(6).fill(null)])
+    
+
+
     function handleClick(value) {
         window.alert(value)
         return console.log(value)
     }
-    const handleSaveClick = event => {
+    const handleSaveClick = () => {
         // 👇️ access textarea value
         window.alert(`You saved: ${ref.current.value}`)
         console.log(ref.current.value);
       };
 
-      const handleDeletClick = event => {
+      const handleDeletClick = () => {
 
       }
-      const handleNewClick = event => {
-        const nextFile = [...files.slice(0, files.length + 1), "file" + (files.length + 1)]
-        setFiles(nextFile)
+      const handleNewClick = ({txtFiles}) => {
+        if (txtFiles.length == 10){
+            const sameFiles = [...txtFiles.slice(0, 10)];
+            setTxtFiles(sameFiles)
+        }
+        else{
+            const nextFiles = [...txtFiles.slice(0, txtFiles.length + 1), "file" + (txtFiles.length + 1) + ".txt"];
+            setTxtFiles(nextFiles);
+        }
+        
+        
       };
-
-      const addedFiles = files.map( (val, index) => {
-          let description = val
-          return(
-              <li key={index}>
-                  <button>{description}</button>
-              </li>) 
-          });
-      
     return (
          <div className="editorContainer">
             <h1>Text Editor</h1>
             <textarea
                 ref={ref}
             />
-            <ul>{addedFiles}</ul>
             <footer>
                 <Button value={'Save'} onButtonClick={handleSaveClick}/>
-                <Button value={'New'} onButtonClick={() => handleNewClick()}/>
+                <Button value={'New'} onButtonClick={() => handleNewClick({txtFiles, setTxtFiles})}/>
                 <Button value={'Delete'} onButtonClick={handleDeletClick}/>
                 <Button value={'Recover'} onButtonClick={() => handleClick('Recover')}/>
             </footer>

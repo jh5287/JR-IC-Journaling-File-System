@@ -35,6 +35,33 @@
   text-align: center;
 }
 
+.fileList {
+  height: 300px;
+}
+
+.fileList > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  list-style-type: none;
+  padding-right: 40px;
+}
+
+.fileList > ul > li > button {
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: underline;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.fileList > ul > li > button:hover {
+  color: gray;
+}
+
+
 textarea {
   height: 100%;
   width:auto;

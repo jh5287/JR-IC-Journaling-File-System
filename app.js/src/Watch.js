@@ -1,24 +1,29 @@
 import './styles.css';
 import React, {useState} from 'react';
 
-const fileButton = ({value, onFileClick}) => {
 
-    return(
-        <button className='file' onClick={onFileClick}>
-            {value}
-        </button>
+function FileButtons({txtFiles}) {
+      const addedFiles = txtFiles.map( (val, index) => {
+          let description = val
+          return(
+              <li key={index}>
+                  <button>{description}</button>
+              </li>) 
+          });
+    return (
+        <ul>{addedFiles}</ul>
     );
 }
 
-
-function Watch(){
-
+function Watch({txtFiles}){
 
     return(
         <div className='watchContainer'>
             <h1>Watched Folder</h1>
             <div className='fileList'>
-                <ul>{fileButton}</ul>
+                <FileButtons
+                txtFiles={txtFiles}
+                />
             </div>
         </div>
     );
