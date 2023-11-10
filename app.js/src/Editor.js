@@ -1,5 +1,5 @@
 import './styles.css';
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 function Button({value, onButtonClick}){
     
     return (
@@ -12,36 +12,36 @@ function Button({value, onButtonClick}){
 
 
 
-function Editor({txtFiles, setTxtFiles}){
+function Editor({files, setFiles}){
     const ref = useRef(null);
-    
-
 
     function handleClick(value) {
         window.alert(value)
         return console.log(value)
     }
     const handleSaveClick = () => {
-        // 👇️ access textarea value
         window.alert(`You saved: ${ref.current.value}`)
         console.log(ref.current.value);
       };
 
-      const handleDeletClick = () => {
-
+      const handleDeleteClick = ({files, setFiles}) => {
+        let deleteItem = prompt("Which text file would you like to remove?", "Choose an existing file");
+        deleteItem = Number(deleteItem) - 1;
+        files.splice(deleteItem, 1);
+        const changedFiles = files;
+        setFiles(changedFiles);
       }
-      const handleNewClick = ({txtFiles}) => {
-        if (txtFiles.length == 10){
-            const sameFiles = [...txtFiles.slice(0, 10)];
-            setTxtFiles(sameFiles)
-        }
-        else{
-            const nextFiles = [...txtFiles.slice(0, txtFiles.length + 1), "file" + (txtFiles.length + 1) + ".txt"];
-            setTxtFiles(nextFiles);
-        }
-        
-        
-      };
+
+      const handleNewClick = ({files, setFiles}) => {
+            if (files.length === 10){
+                const sameFiles = files;
+                setFiles(sameFiles)
+            }
+            else{
+                const nextFiles = [...files.slice(0, files.length + 1), "file" + (files.length + 1) + ".txt"];
+                setFiles(nextFiles);
+            }
+        };
     return (
          <div className="editorContainer">
             <h1>Text Editor</h1>
@@ -50,8 +50,8 @@ function Editor({txtFiles, setTxtFiles}){
             />
             <footer>
                 <Button value={'Save'} onButtonClick={handleSaveClick}/>
-                <Button value={'New'} onButtonClick={() => handleNewClick({txtFiles, setTxtFiles})}/>
-                <Button value={'Delete'} onButtonClick={handleDeletClick}/>
+                <Button value={'New'} onButtonClick={() => handleNewClick({files, setFiles})}/>
+                <Button value={'Delete'} onButtonClick={() => handleDeleteClick({files, setFiles})}/>
                 <Button value={'Recover'} onButtonClick={() => handleClick('Recover')}/>
             </footer>
             

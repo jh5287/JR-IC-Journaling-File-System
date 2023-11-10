@@ -1,28 +1,46 @@
 import './styles.css';
 import React, {useState} from 'react';
 
+function FileButtons({name, onButtonClick}) {
+    return(
+            <button onClick={onButtonClick}>{name}</button>
+        ) 
+};
 
-function FileButtons({txtFiles}) {
-      const addedFiles = txtFiles.map( (val, index) => {
-          let description = val
+
+
+function FileList({files, setCurrentFile}) {
+    const changeCurrentFile = ({name, setCurrentFile}) => {
+        //const someFile = files[0]
+        setCurrentFile(name);
+        console.log("current file: ", name);
+    }
+      const addedFiles = files.map( (val, index) => {
+          let name = val;
           return(
-              <li key={index}>
-                  <button>{description}</button>
-              </li>) 
+              <FileButtons
+                key={index}
+                name={name}
+                onButtonClick={() => changeCurrentFile({name, setCurrentFile})}
+              />) 
           });
     return (
-        <ul>{addedFiles}</ul>
+        <div>{addedFiles}</div>
     );
 }
 
-function Watch({txtFiles}){
 
+
+function Watch({files, setCurrentFile}){
+    //const [myFiles, setMyFiles] = useState([files])
+    
     return(
         <div className='watchContainer'>
             <h1>Watched Folder</h1>
             <div className='fileList'>
-                <FileButtons
-                txtFiles={txtFiles}
+                <FileList
+                files={files}
+                setCurrentFile={setCurrentFile}
                 />
             </div>
         </div>

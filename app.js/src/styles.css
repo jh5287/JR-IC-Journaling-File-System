@@ -39,7 +39,7 @@
   height: 300px;
 }
 
-.fileList > ul {
+.fileList > div {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
@@ -47,7 +47,7 @@
   padding-right: 40px;
 }
 
-.fileList > ul > li > button {
+.fileList > div > button {
   background-color: white;
   border: none;
   color: black;
@@ -55,9 +55,10 @@
   text-decoration: underline;
   display: inline-block;
   font-size: 20px;
+  margin: 20px 0 10px 0;
 }
 
-.fileList > ul > li > button:hover {
+.fileList > div > button:hover {
   color: gray;
 }
 

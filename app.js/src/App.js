@@ -1,24 +1,31 @@
 import './styles.css';
 import Editor from './Editor'
 import Watch from './Watch'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 export default function App() {
   const [files, setFiles] = useState([]);
+  const [currentFile, setCurrentFile] = useState();
+  useEffect (() => {
+
+  }, [files]);
+
   return (
     <div className="body">
     <div className="grid">
 
       <div className="watchedFolder">
         <Watch
-        txtFiles={files}
+        files={files}
+        currentFile={currentFile}
+        setCurrentFile={setCurrentFile}
         />
       </div>
 
       <div className="textEditor">
         <Editor
-        txtFiles={files}
-        setTxtFiles={setFiles}
+        files={files}
+        setFiles={setFiles}
         />
       </div>
 
