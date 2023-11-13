@@ -1,5 +1,5 @@
 import './styles.css';
-import React, {useState} from 'react';
+import React from 'react';
 
 function FileButtons({name, onButtonClick}) {
     return(
@@ -8,12 +8,9 @@ function FileButtons({name, onButtonClick}) {
 };
 
 
-
 function FileList({files, setCurrentFile}) {
     const changeCurrentFile = ({name, setCurrentFile}) => {
-        //const someFile = files[0]
         setCurrentFile(name);
-        console.log("current file: ", name);
     }
       const addedFiles = files.map( (val, index) => {
           let name = val;

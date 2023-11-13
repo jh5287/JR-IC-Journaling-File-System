@@ -26,6 +26,7 @@ export default function App() {
         <Editor
         files={files}
         setFiles={setFiles}
+        currentFile={currentFile}
         />
       </div>
 

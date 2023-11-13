@@ -10,9 +10,16 @@ function Button({value, onButtonClick}){
     )
 }
 
+function CurrentFileDisplay({currentFile}){
+    let description = "Current selected file is ";
+    if(currentFile !== undefined)
+        return(
+         <div className='currentFile'>{description + currentFile}</div>
+        );
+}
 
 
-function Editor({files, setFiles}){
+function Editor({files, setFiles, currentFile}){
     const ref = useRef(null);
 
     function handleClick(value) {
@@ -24,27 +31,30 @@ function Editor({files, setFiles}){
         console.log(ref.current.value);
       };
 
-      const handleDeleteClick = ({files, setFiles}) => {
+    const handleDeleteClick = ({files, setFiles}) => {
         let deleteItem = prompt("Which text file would you like to remove?", "Choose an existing file");
         deleteItem = Number(deleteItem) - 1;
         files.splice(deleteItem, 1);
         const changedFiles = files;
         setFiles(changedFiles);
-      }
+    }
 
-      const handleNewClick = ({files, setFiles}) => {
-            if (files.length === 10){
-                const sameFiles = files;
-                setFiles(sameFiles)
-            }
-            else{
-                const nextFiles = [...files.slice(0, files.length + 1), "file" + (files.length + 1) + ".txt"];
-                setFiles(nextFiles);
-            }
-        };
+    const handleNewClick = ({files, setFiles}) => {
+        if (files.length === 10){
+            const sameFiles = files;
+            setFiles(sameFiles)
+        }
+        else{
+            const nextFiles = [...files.slice(0, files.length + 1), "file" + (files.length + 1) + ".txt"];
+            setFiles(nextFiles);
+        }
+    };
     return (
          <div className="editorContainer">
             <h1>Text Editor</h1>
+            <CurrentFileDisplay 
+            currentFile={currentFile} 
+            />
             <textarea
                 ref={ref}
             />
