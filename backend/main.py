@@ -54,6 +54,8 @@ class FileChangeHandler (FileSystemEventHandler):
                 if changes:
                     try:
                         with open(dat_filename, 'a') as f:
+                            if len(f.readlines()) > 50:
+                                lines_to_delete = len(f.readlines()) - 50
                             f.write(changes)
                     except:
                         print('Error writing to file')
@@ -78,7 +80,6 @@ class FileChangeHandler (FileSystemEventHandler):
 
         self.last_seen[filename] = lines
 
-        # Create the .dat file
         with open(dat_filename, 'w') as f:
             f.write("Time Stamp\t\t\t\t\t\t\ta/r\t\t\tline\n")
             linenum = 1
@@ -102,14 +103,8 @@ class FileChangeHandler (FileSystemEventHandler):
         else:
             print('File not found in last_seen')
 
-def on_moved(event):
-    print("moved")
-
 if __name__ == "__main__":
     event_handler = FileChangeHandler()
-
-    #calling functions
-    event_handler.on_moved = on_moved
 
     path = "../watched_folder"
 
