@@ -2,11 +2,13 @@ import './styles.css';
 import Editor from './Editor'
 import Watch from './Watch'
 import Journal from './Journal'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 export default function App() {
   const [files, setFiles] = useState([]);
   const [currentFile, setCurrentFile] = useState();
+  const [fileContent, setFileContent] = useState([]);
+  const textContent = useRef(null);
   useEffect (() => {
 
   }, [files]);
@@ -17,17 +19,22 @@ export default function App() {
 
       <div className="watchedFolder">
         <Watch
+        textContent={textContent}
         files={files}
         currentFile={currentFile}
         setCurrentFile={setCurrentFile}
+        fileContent={fileContent}
         />
       </div>
 
       <div className="textEditor">
         <Editor
+        textContent={textContent}
         files={files}
         setFiles={setFiles}
         currentFile={currentFile}
+        fileContent={fileContent}
+        setFileContent={setFileContent}
         />
       </div>
 

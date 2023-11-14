@@ -1,6 +1,7 @@
 import './styles.css';
 import React from 'react';
 
+
 function FileButtons({name, onButtonClick}) {
     return(
             <button onClick={onButtonClick}>{name}</button>
@@ -8,9 +9,29 @@ function FileButtons({name, onButtonClick}) {
 };
 
 
-function FileList({files, setCurrentFile}) {
-    const changeCurrentFile = ({name, setCurrentFile}) => {
-        setCurrentFile(name);
+function FileList({textContent, files, setCurrentFile, fileContent}) {
+
+
+    const changeCurrentFile = ({index, setCurrentFile}) => {
+        setCurrentFile(index);
+    }
+
+
+    const updateTextArea = ({textContent, fileContent, index})=> {
+        //need to check for length of array to determine which data to display
+        //it just checks the name which is in the wrong location...maybe not splice the data but just fill with null if continue to check by name?
+        if(fileContent[index] !== undefined)
+            textContent.current.value = fileContent[index]
+        console.log(fileContent[index])
+        for(var i = 0; i < fileContent.length; i++){
+            console.log(fileContent[i])
+        }
+    }
+
+
+    const handleMultiClick = ({textContent, fileContent, setCurrentFile, index}) => {
+        changeCurrentFile({index, setCurrentFile})
+        updateTextArea({textContent, fileContent, index})
     }
       const addedFiles = files.map( (val, index) => {
           let name = val;
@@ -18,7 +39,7 @@ function FileList({files, setCurrentFile}) {
               <FileButtons
                 key={index}
                 name={name}
-                onButtonClick={() => changeCurrentFile({name, setCurrentFile})}
+                onButtonClick={() => handleMultiClick({textContent, fileContent, setCurrentFile, index})}
               />) 
           });
     return (
@@ -28,7 +49,7 @@ function FileList({files, setCurrentFile}) {
 
 
 
-function Watch({files, setCurrentFile}){
+function Watch({textContent, files, setCurrentFile, fileContent}){
     //const [myFiles, setMyFiles] = useState([files])
     
     return(
@@ -36,8 +57,10 @@ function Watch({files, setCurrentFile}){
             <h1>Watched Folder</h1>
             <div className='fileList'>
                 <FileList
+                textContent={textContent}
                 files={files}
                 setCurrentFile={setCurrentFile}
+                fileContent={fileContent}
                 />
             </div>
         </div>
