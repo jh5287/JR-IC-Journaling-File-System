@@ -1,5 +1,9 @@
 import './styles.css';
 import {useRef} from 'react';
+import { saveAs } from 'file-saver';
+
+
+
 function Button({value, onButtonClick}){
     
     return (
@@ -21,6 +25,12 @@ function CurrentFileDisplay({currentFile}){
 
 function Editor({files, setFiles, currentFile}){
     const ref = useRef(null);
+    
+    const handleDownload = () => {
+        const fileData = JSON.stringify(ref.current.value);
+        const file = new Blob([fileData], { type: 'text/plain;charset=utf-8' });
+        saveAs(file, currentFile);
+    }
 
     function handleClick(value) {
         window.alert(value)
@@ -59,7 +69,7 @@ function Editor({files, setFiles, currentFile}){
                 ref={ref}
             />
             <footer>
-                <Button value={'Save'} onButtonClick={handleSaveClick}/>
+                <Button value={'Save'} onButtonClick={handleDownload}/>
                 <Button value={'New'} onButtonClick={() => handleNewClick({files, setFiles})}/>
                 <Button value={'Delete'} onButtonClick={() => handleDeleteClick({files, setFiles})}/>
                 <Button value={'Recover'} onButtonClick={() => handleClick('Recover')}/>

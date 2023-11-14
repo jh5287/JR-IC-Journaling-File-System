@@ -1,6 +1,7 @@
 import './styles.css';
 import Editor from './Editor'
 import Watch from './Watch'
+import Journal from './Journal'
 import {useState, useEffect} from 'react';
 
 export default function App() {
@@ -31,7 +32,9 @@ export default function App() {
       </div>
 
       <div className="journalFolder">
-
+        <Journal
+        currentFile={currentFile}
+        />
       </div>
     </div>
     </div>
