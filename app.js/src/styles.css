@@ -41,6 +41,10 @@
   text-align: center;
 }
 
+.journalContainer > h1 {
+  text-align: center;
+}
+
 .fileList {
   height: 300px;
 }
