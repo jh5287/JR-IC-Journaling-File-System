@@ -42,10 +42,9 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
     const handleDeleteClick = ({files, setFiles, fileContent, setFileContent}) => {
         let deleteItem = prompt("Which text file would you like to remove?", "Choose an existing file");
         deleteItem = Number(deleteItem) - 1;
-        files.splice(deleteItem, 1);
+        const newFiles = files.filter((_, idx) => idx !== deleteItem)
         fileContent.splice(deleteItem, 1);
-        console.log("New content:", fileContent);
-        setFiles(files);
+        setFiles(newFiles);
         setFileContent(fileContent);
     }
 
@@ -66,7 +65,7 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
     };
 
 
-    
+
     return (
          <div className="editorContainer">
             <h1>Text Editor</h1>
@@ -89,5 +88,6 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
     );
 }
 
-
+//DISABLE SAVE BUTTON UNTIL THERE ARE TEXT FILES TO SAVE TO
+//Make sure a text file is selected before the save button can be enabled
 export default Editor;

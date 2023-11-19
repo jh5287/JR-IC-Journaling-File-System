@@ -54,7 +54,8 @@
   flex-wrap: wrap;
   gap: 30px;
   list-style-type: none;
-  padding-right: 40px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 
 .fileList > div > button {

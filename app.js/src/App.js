@@ -2,16 +2,14 @@ import './styles.css';
 import Editor from './Editor'
 import Watch from './Watch'
 import Journal from './Journal'
-import {useState, useEffect, useRef} from 'react';
+import {useState, useRef} from 'react';
 
 export default function App() {
   const [files, setFiles] = useState([]);
   const [currentFile, setCurrentFile] = useState();
   const [fileContent, setFileContent] = useState([]);
   const textContent = useRef(null);
-  useEffect (() => {
 
-  }, [files]);
 
   return (
     <div className="body">
