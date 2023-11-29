@@ -3,6 +3,7 @@
   padding: 20px;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
 }
 
 .grid {
@@ -10,7 +11,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 30px;
-  min-height: 100vh;
+  height: 100%;
 }
 
 .watchedFolder, .journalFolder, .textEditor {
@@ -86,6 +87,11 @@ textarea {
 footer > button:first-child{
   background-color: #1d4ed8;
   border-color: #1d4ed8;
+}
+
+footer > button:first-child:disabled{
+  background-color: #555861;
+  border-color: #555861;
 }
 
 footer > button {

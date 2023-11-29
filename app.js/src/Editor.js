@@ -1,14 +1,15 @@
 import './styles.css';
 import {useState} from 'react'
-import { saveAs } from 'file-saver';
 
 
 
-function Button({value, onButtonClick}){
+function Button({value, onButtonClick, disabled}){
     
     return (
         <button style={{fontSize: "large"}}
-        className="button" onClick={onButtonClick}>
+        className="button" onClick={onButtonClick}
+        disabled={disabled}
+        >
             {value}
         </button>
     );
@@ -27,9 +28,6 @@ function CurrentFileDisplay({currentFile}){
 function Editor({textContent, files, setFiles, currentFile, fileContent, setFileContent}){
     const [fileCount, setFileCount] = useState(1)
     const handleDownload = ({currentFile, fileContent, setFileContent}) => {
-        //const fileData = JSON.stringify(ref.current.value);
-        //const file = new Blob([fileData], { type: 'text/plain;charset=utf-8' });
-        //saveAs(file, currentFile);
         fileContent.splice((currentFile), 1, textContent.current.value);
         setFileContent(fileContent);
     }
@@ -76,7 +74,7 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
                 ref={textContent}
             />
             <footer>
-                <Button value={'Save'} onButtonClick={() => handleDownload({currentFile, fileContent, setFileContent})}/>
+                <Button value={'Save'} onButtonClick={() => handleDownload({currentFile, fileContent, setFileContent})} disabled={currentFile === undefined}/>
                 <Button value={'New'} onButtonClick={() => handleNewClick({files, setFiles})}/>
                 <Button value={'Delete'} onButtonClick={() => handleDeleteClick({files, setFiles, fileContent, setFileContent})}/>
                 <Button value={'Recover'} onButtonClick={() => handleClick('Recover')}/>
