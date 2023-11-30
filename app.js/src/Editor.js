@@ -1,4 +1,5 @@
 import './styles.css';
+import line_diff from './line_diff.js'
 import {useState} from 'react'
 
 
@@ -25,9 +26,25 @@ function CurrentFileDisplay({currentFile}){
 }
 
 
-function Editor({textContent, files, setFiles, currentFile, fileContent, setFileContent}){
+function Editor({textContent, files, setFiles, currentFile, fileContent, setFileContent, fileChanges, setFileChanges}){
     const [fileCount, setFileCount] = useState(1)
-    const handleDownload = ({currentFile, fileContent, setFileContent}) => {
+
+
+    const handleSave = ({currentFile, fileContent, setFileContent, fileChanges, setFileChanges}) => {
+        if(fileContent !== undefined){
+            let old_content = fileContent
+            let old_lines = fileContent[currentFile]
+            console.log("file content", fileContent)
+            console.log("file content at current file", fileContent[currentFile])
+            console.log("old content", old_content)
+            console.log("old lines", old_lines)
+        }
+        
+        //let new_lines = textContent.current.value
+        //let new_content = old_content.splice((currentFile), 1, textContent.current.value);
+        //let changes = line_diff(old_lines, new_lines)
+        //console.log(fileChanges)
+        //setFileChanges(currentFile[changes])
         fileContent.splice((currentFile), 1, textContent.current.value);
         setFileContent(fileContent);
     }
@@ -46,6 +63,7 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
         setFileContent(fileContent);
     }
 
+    
     const handleNewClick = ({files, setFiles}) => {
         if (files.length === 10){
             setFiles(files)
@@ -55,9 +73,9 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
             setFiles(nextFiles);
             setFileCount(fileCount +1);
             const newContent = [...fileContent.slice(0, fileContent.length + 1), ""];
-            for(var i = 0; i < newContent.length; i++){
-                console.log(newContent[i])
-            }
+            //for(var i = 0; i < newContent.length; i++){
+            //    console.log(newContent[i])
+            //}
             setFileContent(newContent)
         }
     };
@@ -74,7 +92,7 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
                 ref={textContent}
             />
             <footer>
-                <Button value={'Save'} onButtonClick={() => handleDownload({currentFile, fileContent, setFileContent})} disabled={currentFile === undefined}/>
+                <Button value={'Save'} onButtonClick={() => handleSave({currentFile, fileContent, setFileContent, fileChanges, setFileChanges})} disabled={currentFile === undefined}/>
                 <Button value={'New'} onButtonClick={() => handleNewClick({files, setFiles})}/>
                 <Button value={'Delete'} onButtonClick={() => handleDeleteClick({files, setFiles, fileContent, setFileContent})}/>
                 <Button value={'Recover'} onButtonClick={() => handleClick('Recover')}/>

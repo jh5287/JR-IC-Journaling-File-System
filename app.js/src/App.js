@@ -8,6 +8,7 @@ export default function App() {
   const [files, setFiles] = useState([]);
   const [currentFile, setCurrentFile] = useState();
   const [fileContent, setFileContent] = useState([]);
+  const [fileChanges, setFileChanges] = useState(Array(10).fill([]))
   const textContent = useRef(null);
 
 
@@ -33,12 +34,16 @@ export default function App() {
         currentFile={currentFile}
         fileContent={fileContent}
         setFileContent={setFileContent}
+        fileChanges={fileChanges}
+        setFileChanges={setFileChanges}
         />
       </div>
 
       <div className="journalFolder">
         <Journal
         currentFile={currentFile}
+        fileChanges={fileChanges}
+        setFileChanges={setFileChanges}
         />
       </div>
     </div>

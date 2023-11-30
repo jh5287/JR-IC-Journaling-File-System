@@ -22,10 +22,10 @@ function FileList({textContent, files, setCurrentFile, fileContent}) {
         //it just checks the name which is in the wrong location...maybe not splice the data but just fill with null if continue to check by name?
         if(fileContent[index] !== undefined)
             textContent.current.value = fileContent[index]
-        console.log(fileContent[index])
-        for(var i = 0; i < fileContent.length; i++){
-            console.log(fileContent[i])
-        }
+        //console.log(fileContent[index])
+        //for(var i = 0; i < fileContent.length; i++){
+        //    console.log(fileContent[i])
+        //}
     }
 
 
