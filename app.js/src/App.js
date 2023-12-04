@@ -41,6 +41,7 @@ export default function App() {
 
       <div className="journalFolder">
         <Journal
+        files={files}
         currentFile={currentFile}
         fileChanges={fileChanges}
         setFileChanges={setFileChanges}

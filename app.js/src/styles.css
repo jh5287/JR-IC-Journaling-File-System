@@ -46,6 +46,10 @@
   text-align: center;
 }
 
+.journal {
+  font-size: x-small;
+}
+
 .fileList {
   height: 300px;
 }

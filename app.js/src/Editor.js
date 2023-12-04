@@ -31,22 +31,33 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
 
 
     const handleSave = ({currentFile, fileContent, setFileContent, fileChanges, setFileChanges}) => {
-        if(fileContent !== undefined){
-            let old_content = fileContent
-            let old_lines = fileContent[currentFile]
-            console.log("file content", fileContent)
-            console.log("file content at current file", fileContent[currentFile])
-            console.log("old content", old_content)
-            console.log("old lines", old_lines)
-        }
         
-        //let new_lines = textContent.current.value
-        //let new_content = old_content.splice((currentFile), 1, textContent.current.value);
-        //let changes = line_diff(old_lines, new_lines)
-        //console.log(fileChanges)
-        //setFileChanges(currentFile[changes])
-        fileContent.splice((currentFile), 1, textContent.current.value);
-        setFileContent(fileContent);
+        let old_content = fileContent
+        let old_lines = old_content[currentFile]
+        console.log("old lines", old_lines)
+        
+        let new_lines = textContent.current.value
+        
+        let new_content = fileContent.map((value, index) => {
+            if(index === currentFile){
+                return textContent.current.value
+            }
+            return value
+        });
+        let changes = line_diff(old_lines, new_lines)
+        console.log("changes", changes)
+
+        let updateFileChanges = fileChanges.map((value, index) => {
+            if(index === currentFile){
+                return value + changes
+            }
+            return value
+        });
+
+        console.log("update file changes", updateFileChanges)
+        setFileChanges(updateFileChanges)
+        console.log("file changes", fileChanges)
+        setFileContent(new_content);
     }
 
     function handleClick(value) {
@@ -77,6 +88,7 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
             //    console.log(newContent[i])
             //}
             setFileContent(newContent)
+            
         }
     };
 

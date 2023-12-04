@@ -2,15 +2,17 @@ import './styles.css';
 import React from 'react';
 
 
-function JournalDisplay(fileChanges){
+function JournalDisplay({fileChanges, currentFile}){
+    let index = currentFile
+    let selectedFile = fileChanges[index]
     return(
-        <div className='journal'>{fileChanges}</div>
+        <div className='journal'>{selectedFile}</div>
     )
 }
 
 
 
-function Journal({currentFile, fileChanges, setFileChanges}){
+function Journal({files, currentFile, fileChanges, setFileChanges}){
 
 
     let line_diff = (old_lines, new_lines) => {
@@ -42,13 +44,17 @@ function Journal({currentFile, fileChanges, setFileChanges}){
         
     }
     
-   
+   let index = currentFile
+   let selectedFile = files[index]
 
     if(currentFile !== undefined)
     return(
         <div className='journalContainer'>
-            <h1>{"file"+ (currentFile + 1) + ".txt.dat"} </h1>
-            <div className='journal'></div>
+            <h1>{(selectedFile) + ".dat"} </h1>
+            <JournalDisplay
+            fileChanges={fileChanges}
+            currentFile={currentFile}
+            />
         </div>
     );
 }
