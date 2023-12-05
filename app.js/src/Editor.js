@@ -65,13 +65,22 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
         return console.log(value)
     }
 
-    const handleDeleteClick = ({files, setFiles, fileContent, setFileContent}) => {
+    const handleDeleteClick = ({files, setFiles, fileContent, setFileContent, fileChanges, setFileChanges}) => {
         let deleteItem = prompt("Which text file would you like to remove?", "Choose an existing file");
         deleteItem = Number(deleteItem) - 1;
         const newFiles = files.filter((_, idx) => idx !== deleteItem)
-        fileContent.splice(deleteItem, 1);
+        const newFileContent = fileContent.filter((_, idx) => idx !== deleteItem)
+        const newFileChanges = fileChanges.filter((_, idx) => idx !== deleteItem)
+        console.log("Journal after removal of file")
+        //fileContent.splice(deleteItem, 1);
         setFiles(newFiles);
-        setFileContent(fileContent);
+        setFileContent(newFileContent);
+
+        //actually, you do not need to remove the journal associated with the file
+        //BECAUSE you still need that data in order to do the recover function
+
+        //you do have to make sure that the index of the journal matches the index of the file
+        setFileChanges(newFileChanges);
     }
 
     
@@ -84,9 +93,6 @@ function Editor({textContent, files, setFiles, currentFile, fileContent, setFile
             setFiles(nextFiles);
             setFileCount(fileCount +1);
             const newContent = [...fileContent.slice(0, fileContent.length + 1), ""];
-            //for(var i = 0; i < newContent.length; i++){
-            //    console.log(newContent[i])
-            //}
             setFileContent(newContent)
             
         }

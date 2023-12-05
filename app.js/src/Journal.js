@@ -21,14 +21,18 @@ function Journal({files, currentFile, fileChanges, setFileChanges}){
         let changes = '';
         while (old_line_number <= old_lines.length || new_line_number <= new_lines.length) {
             if (old_line_number > old_lines.length) {
-                changes += `${Date()}\t\t\t+\t\t\tl${new_line_number}:${new_lines[new_line_number-1]}`;
+                changes += `${Date()}           +           l${new_line_number}:${new_lines[new_line_number-1]}
+                `;
                 new_line_number += 1;
             } else if (new_line_number > new_lines.length) {
-                changes += `${Date()}\t\t\t-\t\t\tl${old_line_number}:${old_lines[old_line_number-1]}`;
+                changes += `${Date()}           -           l${old_line_number}:${old_lines[old_line_number-1]}
+                `;
                 old_line_number += 1;
             } else if (old_lines[old_line_number-1] !== new_lines[new_line_number-1]) {
-                changes += `${Date()}\t\t\t-\t\t\tl${old_line_number}:${old_lines[old_line_number-1]}`;
-                changes += `${Date()}\t\t\t+\t\t\tl${new_line_number}:${new_lines[new_line_number-1]}`;
+                changes += `${Date()}           -           l${old_line_number}:${old_lines[old_line_number-1]}
+                `;
+                changes += `${Date()}           +           l${new_line_number}:${new_lines[new_line_number-1]}
+                `;
                 old_line_number += 1;
                 new_line_number += 1;
             } else {
@@ -49,13 +53,16 @@ function Journal({files, currentFile, fileChanges, setFileChanges}){
 
     if(currentFile !== undefined)
     return(
+    
         <div className='journalContainer'>
             <h1>{(selectedFile) + ".dat"} </h1>
+            <div className='scrollContainer'>
             <JournalDisplay
             fileChanges={fileChanges}
             currentFile={currentFile}
             />
         </div>
+    </div>
     );
 }
 

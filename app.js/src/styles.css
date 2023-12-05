@@ -40,14 +40,25 @@
 
 .watchContainer > h1 {
   text-align: center;
+  
+}
+
+.scrollContainer {
+  max-height: 280px;
+  overflow-y: scroll;
 }
 
 .journalContainer > h1 {
+  position: sticky;
   text-align: center;
+  margin-bottom: 5px;
 }
 
 .journal {
-  font-size: x-small;
+  font-size: small;
+  white-space: pre-line;
+
+  
 }
 
 .fileList {
