@@ -22,4 +22,4 @@ def replay(filename, line_count):
         for line_number in sorted(file_state.keys()):
             f.write(file_state[line_number])
 
-replay('../watched_folder/new.txt', 6)
+replay('../watched_folder/new.txt', 11)
