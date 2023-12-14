@@ -12,14 +12,14 @@ def line_diff(old_lines, new_lines):
         changes = ''
         while old_line_number <= len(old_lines) or new_line_number <= len(new_lines):
             if old_line_number > len(old_lines):
-                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1]}'
+                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1]}\n'
                 new_line_number += 1
             elif new_line_number > len(new_lines):
-                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1]}'
+                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1]}\n'
                 old_line_number += 1
             elif old_lines[old_line_number-1] != new_lines[new_line_number-1]:
-                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1]}'
-                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1]}'
+                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1]}\n'
+                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1]}\n'
                 old_line_number += 1
                 new_line_number += 1
             else:
