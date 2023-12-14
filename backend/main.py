@@ -26,6 +26,21 @@ def line_diff(old_lines, new_lines):
                 old_line_number += 1
                 new_line_number += 1
         return changes
+def circulate_journal(dat_filename, lines_to_delete):
+    print("circulating journal")
+    with open(dat_filename, 'w+') as f:
+        print("Opened file")
+        print(f.seekable())
+        f.seek(0)
+        f.seek(lines_to_delete)
+        new_lines = f.readlines()
+        new_lines = " ".join(new_lines)
+        print(new_lines)
+        print(type(new_lines))
+        f.seek(0)
+        f.write(new_lines)
+        return
+
 
 class FileChangeHandler (FileSystemEventHandler):
     def __init__(self):
@@ -55,8 +70,13 @@ class FileChangeHandler (FileSystemEventHandler):
                     try:
                         with open(dat_filename, 'a+') as f:
                             print(dat_filename)
+                            f.seek(0)
                             if len(f.readlines()) > 50:
-                               lines_to_delete = len(f.readlines()) - 50
+                                f.seek(0)
+                                lines_to_delete = len(f.readlines()) - 50
+                                lines_to_delete = lines_to_delete + len(changes.split('\n'))
+                                print("lines to delete", lines_to_delete)
+                                circulate_journal(dat_filename, lines_to_delete)
                             f.write(changes)
                     except Exception as e:
                         print(e)
