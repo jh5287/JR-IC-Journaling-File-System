@@ -12,34 +12,30 @@ def line_diff(old_lines, new_lines):
         changes = ''
         while old_line_number <= len(old_lines) or new_line_number <= len(new_lines):
             if old_line_number > len(old_lines):
-                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1]}\n'
+                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1].rstrip()}\n'
                 new_line_number += 1
             elif new_line_number > len(new_lines):
-                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1]}\n'
+                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1].rstrip()}\n'
                 old_line_number += 1
             elif old_lines[old_line_number-1] != new_lines[new_line_number-1]:
-                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1]}\n'
-                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1]}\n'
+                changes += f'{datetime.datetime.now()}\t\t\t-\t\t\tl{old_line_number}:{old_lines[old_line_number-1].rstrip()}\n'
+                changes += f'{datetime.datetime.now()}\t\t\t+\t\t\tl{new_line_number}:{new_lines[new_line_number-1].rstrip()}\n'
                 old_line_number += 1
                 new_line_number += 1
             else:
                 old_line_number += 1
                 new_line_number += 1
         return changes
+
 def circulate_journal(dat_filename, lines_to_delete):
-    print("circulating journal")
-    with open(dat_filename, 'w+') as f:
-        print("Opened file")
-        print(f.seekable())
-        f.seek(0)
-        f.seek(lines_to_delete)
-        new_lines = f.readlines()
-        new_lines = " ".join(new_lines)
-        print(new_lines)
-        print(type(new_lines))
-        f.seek(0)
-        f.write(new_lines)
-        return
+    with open(dat_filename, 'r') as f:
+        lines = f.readlines()
+
+    lines = [lines[0]] + lines[lines_to_delete+1:]
+    lines[0] = "Time Stamp\t\t\t\t\t\t\ta/r\t\t\tline\n"
+
+    with open(dat_filename, 'w') as f:
+        f.writelines(lines)
 
 
 class FileChangeHandler (FileSystemEventHandler):
