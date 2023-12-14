@@ -54,11 +54,12 @@ class FileChangeHandler (FileSystemEventHandler):
                 if changes:
                     try:
                         with open(dat_filename, 'a') as f:
+                            print(dat_filename)
                             if len(f.readlines()) > 50:
-                                lines_to_delete = len(f.readlines()) - 50
+                               lines_to_delete = len(f.readlines()) - 50
                             f.write(changes)
-                    except:
-                        print('Error writing to file')
+                    except Exception as e:
+                        print('Error writing to file' + e.with_traceback())
                         pass
 
             self.last_seen[filename] = lines
